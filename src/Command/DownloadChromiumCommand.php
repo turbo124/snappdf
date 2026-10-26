@@ -137,7 +137,10 @@ class DownloadChromiumCommand extends Command
         );
 
         $output->writeln('Extracting');
-        mkdir(dirname(__FILE__, 3) . "/versions/{$platformRevision}");
+
+        if (!is_dir(dirname(__FILE__, 3) . "/versions/{$platformRevision}")) {
+            mkdir(dirname(__FILE__, 3) . "/versions/{$platformRevision}");
+        }
 
         $phar = new \PharData(dirname(__FILE__, 3) . "/versions/ungoogled.tar");
         $phar->extractTo(dirname(__FILE__, 3) . "/versions/{$platformRevision}", null, true);
